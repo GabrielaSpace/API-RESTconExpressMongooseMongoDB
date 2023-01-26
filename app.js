@@ -1,6 +1,5 @@
 const express = require('express')
 const cowsay = require('cowsay')
-
 require('./utils/db_mongo'); // conectarse a la BBDD Mongo
 const calculator = require('./utils/calculator')
 const error404 = require('./middlewares/error404')
@@ -8,6 +7,7 @@ const error404 = require('./middlewares/error404')
 // Módulos de Rutas
 const booksRoutes = require('./routes/booksRoutes')
 const productsRoutes = require('./routes/productsRoutes')
+const providersRoutes = require('./routes/providersRoutes')
 const productsApiRoutes = require('./routes/productsApiRoutes')
 const entriesApiRoutes = require('./routes/entriesApiRoutes')
 
@@ -32,8 +32,10 @@ app.get('/', (req, res) => {
 //Rutas 
 app.use('/books',booksRoutes); // Books
 app.use('/products',productsRoutes); // Rutas web products
+app.use('/providers',providersRoutes); // Rutas providers
 app.use('/api/products',productsApiRoutes); // Rutas web API products
 app.use('/api/entries',entriesApiRoutes); // Rutas API entries
+
 app.use(error404); // Middleware Para ruta no encontrada (404)
 
 app.listen(port, () => {
