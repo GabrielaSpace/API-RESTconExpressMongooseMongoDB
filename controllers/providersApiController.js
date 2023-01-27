@@ -27,8 +27,36 @@ const getProviders= async (req,res) => {
             res.status(400).json({msj: err.message});
         }
     }}
+
+    const createProvider= async (req,res) => {
+        
+        const newProvider= req.body; // {title, , price, description, provider: company_name}
+        
+    
+        try{
+            let response = await new Provider(newProvider);
+            let answer = await response.save();
+            res.status(201).json({
+                msj:`Proveedor ${answer.title} guardado en el sistema.`,
+                "provider": answer
+            });
+        }catch(err){
+            console.log("Este es el error que devuelve la api", err.message);
+            res.status(400).json({
+                msj: err.message
+            });
+    
+        }
+    }
+
+
+
+
+
+
 module.exports = {
-    getProviders
+    getProviders,
+    createProvider
     
 }
 

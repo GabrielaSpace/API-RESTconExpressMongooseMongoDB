@@ -1,40 +1,27 @@
 const express = require('express')
 const cowsay = require('cowsay')
 require('./utils/db_mongo'); // conectarse a la BBDD Mongo
-const calculator = require('./utils/calculator')
 const error404 = require('./middlewares/error404')
-
-// Módulos de Rutas
-const booksRoutes = require('./routes/booksRoutes')
-const productsRoutes = require('./routes/productsRoutes')
-const providersRoutes = require('./routes/providersRoutes')
-const productsApiRoutes = require('./routes/productsApiRoutes')
-const entriesApiRoutes = require('./routes/entriesApiRoutes')
-
 const app = express()
 const port = 3000
 
-// Template engine
-app.set('view engine', 'pug');
-app.set('views', './views');
+// Módulos de Rutas
+const productsApiRoutes = require('./routes/productsApiRoutes')
+const providersApiRoutes = require('./routes/providersApiRoutes')
 
 // Middlewares
 app.use(express.json()); // Habilitar tipo de dato a recibir
 app.use(express.urlencoded({ extended: true }));
-app.use(express.static('public'))
 
 app.get('/', (req, res) => {
-    const calc = calculator.add(2, 2);
-    //res.send(`Hello World! La suma es ${suma}`)
-    res.render('content', { msj: "The Bridge", calc })
+    res.send(`Hello World!,  `)
+   
 })
 
 //Rutas 
-app.use('/books',booksRoutes); // Books
-app.use('/products',productsRoutes); // Rutas web products
-app.use('/providers',providersRoutes); // Rutas providers
-app.use('/api/products',productsApiRoutes); // Rutas web API products
-app.use('/api/entries',entriesApiRoutes); // Rutas API entries
+app.use('/api/products',productsApiRoutes); // Rutas web products
+app.use('/api/providers',providersApiRoutes); // Rutas providers
+
 
 app.use(error404); // Middleware Para ruta no encontrada (404)
 

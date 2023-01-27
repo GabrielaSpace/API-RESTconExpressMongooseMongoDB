@@ -1,12 +1,14 @@
 const mongoose = require('mongoose');
-require('../utils/db_mongo');
+// require('../utils/db_mongo');
 const objectSchema = {
     id: { 
         type: Number, 
         required: true,
         unique: true
     },
-    provider: { type: mongoose.Schema.Types.ObjectId, ref: 'Provider' },
+    provider: { 
+        type: mongoose.Schema.Types.ObjectId, 
+        ref: 'Provider' },
     title: { 
         type: String, 
         required: true,
@@ -46,7 +48,7 @@ module.exports = Product;
 
 /* const p = new Product({
     id: 6,
-    provider: "C-12345678",
+    provider: "salads",
     title: "Ensalada 4 estaciones",
     price: 1.80,
     description: "Barrita jugosa del teatro",
