@@ -29,15 +29,13 @@ const getProviders= async (req,res) => {
     }}
 
     const createProvider= async (req,res) => {
+        const newProvider= req.body; 
         
-        const newProvider= req.body; // {title, , price, description, provider: company_name}
-        
-    
         try{
             let response = await new Provider(newProvider);
             let answer = await response.save();
             res.status(201).json({
-                msj:`Proveedor ${answer.title} guardado en el sistema.`,
+                msj:`Proveedor ${answer.company_name} guardado en el sistema.`,
                 "provider": answer
             });
         }catch(err){
@@ -56,7 +54,8 @@ const getProviders= async (req,res) => {
 
 module.exports = {
     getProviders,
-    createProvider
+    createProvider,
+    
     
 }
 

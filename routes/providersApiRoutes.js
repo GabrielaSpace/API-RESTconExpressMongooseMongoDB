@@ -8,6 +8,6 @@ const providersApiRouter = express.Router();
 // GET http://localhost:3000/products
 // /products
 providersApiRouter.get('/:id?',providersApiController.getProviders);
-providersApiRouter.get('/',providersApiController.createProvider);
+providersApiRouter.post('/',providersApiController.createProvider);
 
 module.exports = providersApiRouter;
