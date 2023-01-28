@@ -7,7 +7,10 @@ const providersApiRouter = express.Router();
 // GET http://localhost:3000/products/4
 // GET http://localhost:3000/products
 // /products
-providersApiRouter.get('/:id?',providersApiController.getProviders);
+providersApiRouter.get('/',providersApiController.getProviders);
 providersApiRouter.post('/',providersApiController.createProvider);
+providersApiRouter.delete('/',providersApiController.deleteProvider);
+providersApiRouter.put('/',providersApiController.updateProvider);
+
 
 module.exports = providersApiRouter;

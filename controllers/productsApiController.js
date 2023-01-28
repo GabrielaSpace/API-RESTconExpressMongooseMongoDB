@@ -32,7 +32,7 @@ const getProducts = async (req,res) => {
 }
     const createProduct = async (req,res) => {
         console.log("Esto es el console.log de lo que introducimos por postman", req.body); // Objeto recibido de producto nuevo
-        let company_id = await Provider.findOne({company_name: req.body.provider}, '_id').exec();
+        let company_id = await Provider.findOne({company_name: req.body.provider}, '_id');
         const newProduct = req.body; // {title, , price, description, provider: company_name}
         newProduct.provider = company_id;
     
@@ -54,10 +54,22 @@ const getProducts = async (req,res) => {
 
     const deleteProduct = async (req,res)=>{
         try {
-            let {id}=req.body
-            let answer = await Product.findOneAndDelete({id})
+            let {title}=req.body
+            let answer = await Product.findOneAndDelete({title})
     
-            const msj =`Has eliminado el producto ${answer.id} de la base de datos` ;
+            const msj =`Has eliminado el proveedor con nombre ${answer.title} de la base de datos` ;
+            res.status(200).json({"message":msj})
+        } catch (error) {
+            res.status(400).json({msj: error.message});
+        }
+    }
+
+    const updateProduct = async (req,res)=>{
+        try {
+            let {title, price, description }=req.body
+            let answer = await Product.findOneAndUpdate({title},{ price, description })
+    
+            const msj =`Has actualizado el producto con nombre ${answer.title} de la base de datos` ;
             res.status(200).json({"message":msj})
         } catch (error) {
             res.status(400).json({msj: error.message});
@@ -68,6 +80,7 @@ module.exports = {
     getProducts,
     createProduct,
     deleteProduct,
+    updateProduct
     
     
 }

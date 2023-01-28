@@ -19,7 +19,7 @@ const getProviders= async (req,res) => {
         }
     } else { // sin ID --> TODOS los providers
         try {
-         
+
             let providers = await Provider.find({},'-_id -__v');
             res.status(200).json(providers); // Respuesta de la API para muchos productos
         }
@@ -27,7 +27,7 @@ const getProviders= async (req,res) => {
             res.status(400).json({msj: err.message});
         }
     }}
-
+    
     const createProvider= async (req,res) => {
         const newProvider= req.body; 
         
@@ -47,7 +47,28 @@ const getProviders= async (req,res) => {
         }
     }
 
+    
+    const deleteProvider= async (req,res)=>{
+        try {
+            let {company_name}=req.body
+            let answer = await  Provider.findOneAndDelete({company_name})
+            const msj =`Has eliminado al proveedor ${answer.company_name} de la base de datos` ;
+            res.status(200).json({"message":msj})
+        } catch (error) {
+            res.status(400).json({msj: error.message});
+        }
+    }
 
+    const updateProvider= async (req,res)=>{
+        try {
+            let {company_name, CIF,address,url_web }=req.body
+            let answer = await Provider.findOneAndUpdate({company_name},{CIF,address,url_web})
+            const msj =`Has actualizado el proveedor ${answer.company_name}  en la base de datos` ;
+            res.status(200).json({"message":msj})
+        } catch (error) {
+            res.status(400).json({msj: error.message});
+        }
+    }
 
 
 
@@ -55,7 +76,10 @@ const getProviders= async (req,res) => {
 module.exports = {
     getProviders,
     createProvider,
+    deleteProvider,
+    updateProvider
     
+
     
 }
 

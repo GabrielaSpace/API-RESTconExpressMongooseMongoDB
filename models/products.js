@@ -1,14 +1,11 @@
 const mongoose = require('mongoose');
 // require('../utils/db_mongo');
 const objectSchema = {
-    id: { 
-        type: Number, 
-        required: true,
-        unique: true
-    },
+    
     provider: { 
         type: mongoose.Schema.Types.ObjectId, 
-        ref: 'Provider' },
+        ref: 'Provider' ,
+        require: true},
     title: { 
         type: String, 
         required: true,
